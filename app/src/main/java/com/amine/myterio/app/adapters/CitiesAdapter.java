@@ -1,4 +1,4 @@
-package com.amine.myterio.app;
+package com.amine.myterio.app.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.amine.myterio.app.R;
 import com.amine.myterio.app.api.WeatherAdapters;
 import com.amine.myterio.app.api.WeatherApis;
 import com.amine.myterio.app.model.City;
@@ -20,21 +21,6 @@ import java.util.ArrayList;
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder> {
     private static ArrayList<City> mDataset;
     private static Context c;
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener{
-        public View mCardView;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mCardView = itemView;
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            // Go to details activity
-        }
-    }
 
     public CitiesAdapter(ArrayList<City> cities, Context c) {
         mDataset = cities;
@@ -62,6 +48,9 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
                 currentCity[0] = city;
                 // Update with found data
 
+                TextView temp = (TextView) holder.mCardView.findViewById(R.id.temp);
+                temp.setText("" + city.getMain().getTemp());
+
                 TextView maxTemp = (TextView) holder.mCardView.findViewById(R.id.max_temp);
                 maxTemp.setText("" + city.getMain().getTemp_max());
 
@@ -88,5 +77,20 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener {
+        public View mCardView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mCardView = itemView;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // Go to details activity
+        }
     }
 }

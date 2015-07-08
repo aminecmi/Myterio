@@ -20,6 +20,10 @@ public class City {
 
     }
 
+    public City(String description) {
+        this.name = description;
+    }
+
 
     public String getName() {
         return name;
