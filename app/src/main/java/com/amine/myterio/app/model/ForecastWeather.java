@@ -6,6 +6,7 @@ public class ForecastWeather {
     public TempInfo temp;
     public List<Weather> weather;
     public float speed;
+    public int dt;
 
     public TempInfo getTemp() {
         return temp;
@@ -29,5 +30,13 @@ public class ForecastWeather {
 
     public void setSpeed(float speed) {
         this.speed = speed;
+    }
+
+    public int getDt() {
+        return dt;
+    }
+
+    public void setDt(int dt) {
+        this.dt = dt;
     }
 }

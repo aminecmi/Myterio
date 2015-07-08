@@ -1,11 +1,14 @@
 package com.amine.myterio.app;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.amine.myterio.app.adapters.ForecastAdapter;
 import com.amine.myterio.app.api.WeatherAdapters;
 import com.amine.myterio.app.api.WeatherApis;
 import com.amine.myterio.app.model.City;
@@ -15,7 +18,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class DetailsActivity extends ActionBarActivity {
+public class DetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,11 @@ public class DetailsActivity extends ActionBarActivity {
 
         WeatherAdapters adapters = new WeatherAdapters();
         final Forecast[] f = {null};
+        final RecyclerView list = (RecyclerView) findViewById(R.id.weekForecast);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        list.setLayoutManager(layoutManager);
+        list.setHasFixedSize(true);
+
 
         if (cityName != null) {
             WeatherApis.WeatherDailyForecastLocationApi s = adapters.getWeatherForecastLocationAdapter();
@@ -34,6 +42,8 @@ public class DetailsActivity extends ActionBarActivity {
                 @Override
                 public void success(Forecast forecast, Response response) {
                     f[0] = forecast;
+                    list.setAdapter(new ForecastAdapter(DetailsActivity.this, f[0]));
+
                 }
 
                 @Override
@@ -50,6 +60,7 @@ public class DetailsActivity extends ActionBarActivity {
                 @Override
                 public void success(Forecast forecast, Response response) {
                     f[0] = forecast;
+                    list.setAdapter(new ForecastAdapter(DetailsActivity.this, f[0]));
                 }
 
                 @Override
@@ -61,9 +72,6 @@ public class DetailsActivity extends ActionBarActivity {
 
         TextView name = (TextView) findViewById(R.id.cityName);
         name.setText(cityName);
-
-
-
     }
 
 
