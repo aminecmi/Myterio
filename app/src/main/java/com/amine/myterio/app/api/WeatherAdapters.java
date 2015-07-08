@@ -23,4 +23,9 @@ public class WeatherAdapters {
     public WeatherApis.WeatherDailyForecastApi getWeatherForecastAdapter() {
         return restAdapter.create(WeatherApis.WeatherDailyForecastApi.class);
     }
+
+
+    public WeatherApis.WeatherDailyForecastLocationApi getWeatherForecastLocationAdapter() {
+        return restAdapter.create(WeatherApis.WeatherDailyForecastLocationApi.class);
+    }
 }

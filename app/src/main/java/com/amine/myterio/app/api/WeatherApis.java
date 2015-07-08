@@ -19,4 +19,9 @@ public class WeatherApis {
         @GET("/data/2.5/forecast/daily?units=metric&cnt=7")
         void cityForecast(@Query("id") int city, Callback<Forecast> cb);
     }
+
+    public interface WeatherDailyForecastLocationApi {
+        @GET("/data/2.5/forecast/daily?units=metric&cnt=7")
+        void cityForecast(@Query("q") String location, Callback<Forecast> cb);
+    }
 }

@@ -4,6 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.amine.myterio.app.api.WeatherAdapters;
+import com.amine.myterio.app.api.WeatherApis;
+import com.amine.myterio.app.model.City;
+import com.amine.myterio.app.model.Forecast;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class DetailsActivity extends ActionBarActivity {
@@ -12,6 +21,49 @@ public class DetailsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        String cityName = getIntent().getExtras().getString("city_name");
+
+        WeatherAdapters adapters = new WeatherAdapters();
+        final Forecast[] f = {null};
+
+        if (cityName != null) {
+            WeatherApis.WeatherDailyForecastLocationApi s = adapters.getWeatherForecastLocationAdapter();
+
+            s.cityForecast(cityName, new Callback<Forecast>() {
+                @Override
+                public void success(Forecast forecast, Response response) {
+                    f[0] = forecast;
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getApplicationContext(), "Pas de prévisions pour cette ville.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            City city = getIntent().getExtras().getParcelable("city");
+            cityName = city.getName();
+            WeatherApis.WeatherDailyForecastApi s = adapters.getWeatherForecastAdapter();
+
+            s.cityForecast(city.getCityIdentifier(), new Callback<Forecast>() {
+                @Override
+                public void success(Forecast forecast, Response response) {
+                    f[0] = forecast;
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getApplicationContext(), "Pas de prévisions pour cette ville.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        TextView name = (TextView) findViewById(R.id.cityName);
+        name.setText(cityName);
+
+
+
     }
 
 
