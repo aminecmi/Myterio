@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.amine.myterio.app.adapters.ForecastAdapter;
@@ -48,7 +49,21 @@ public class DetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(getApplicationContext(), "Pas de prévisions pour cette ville.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Pas de prï¿½visions pour cette ville.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            WeatherApis.WeatherLocationApi sWeather = adapters.getWeatherLocationAdapter();
+            sWeather.locationWeather(cityName, new Callback<City>() {
+                @Override
+                public void success(City c, Response response) {
+                    ImageView image = (ImageView) findViewById(R.id.weatherImage);
+                    image.setImageDrawable(c.getWeather().get(0).getIconDrawable(DetailsActivity.this, DetailsActivity.this.getPackageName()));
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(DetailsActivity.this, "Hello toast!", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -65,7 +80,21 @@ public class DetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(getApplicationContext(), "Pas de prévisions pour cette ville.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Pas de prï¿½visions pour cette ville.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            WeatherApis.WeatherCityApi sWeather = adapters.getWeatherCityAdapter();
+            sWeather.cityWeather(city.getCityIdentifier(), new Callback<City>() {
+                @Override
+                public void success(City c, Response response) {
+                    ImageView image = (ImageView) findViewById(R.id.weatherImage);
+                    image.setImageDrawable(c.getWeather().get(0).getIconDrawable(DetailsActivity.this, DetailsActivity.this.getPackageName()));
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(DetailsActivity.this, "Hello toast!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
