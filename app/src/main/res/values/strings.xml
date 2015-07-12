@@ -10,4 +10,5 @@
     <string name="title_remove_from_favs">Supprimer la ville?</string>
     <string name="delete">Supprimer</string>
     <string name="cancel">Annuler</string>
+    <string name="country_list_error">Erreur lors de la récupération des pays</string>
 </resources>
