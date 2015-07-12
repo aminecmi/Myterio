@@ -3,8 +3,8 @@ package com.amine.myterio.app.model;
 import java.util.List;
 
 public class Forecast {
-    public City city;
-    public List<ForecastWeather> list;
+    private City city;
+    private List<ForecastWeather> list;
 
     public City getCity() {
         return city;

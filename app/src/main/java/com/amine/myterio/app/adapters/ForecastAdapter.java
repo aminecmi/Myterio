@@ -15,9 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
-    private static Forecast forecast;
-    private static Context c;
-
+    private Forecast forecast;
+    private Context c;
     public ForecastAdapter(Context c, Forecast forecast) {
         this.forecast = forecast;
         this.c = c;
@@ -27,8 +26,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     @Override
     public ForecastAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_item, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -52,7 +50,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public View itemView;
+        public final View itemView;
 
         public ViewHolder(View itemView) {
             super(itemView);

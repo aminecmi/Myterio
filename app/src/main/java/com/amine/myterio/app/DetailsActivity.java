@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.amine.myterio.app.adapters.ForecastAdapter;
 import com.amine.myterio.app.api.WeatherAdapters;
 import com.amine.myterio.app.api.WeatherApis;
+import com.amine.myterio.app.config.Config;
 import com.amine.myterio.app.model.City;
 import com.amine.myterio.app.model.Forecast;
 import retrofit.Callback;
@@ -39,7 +40,7 @@ public class DetailsActivity extends AppCompatActivity {
         if (cityName != null) {
             WeatherApis.WeatherDailyForecastLocationApi s = adapters.getWeatherForecastLocationAdapter();
 
-            s.cityForecast(cityName, new Callback<Forecast>() {
+            s.cityForecast(cityName, Config.country, new Callback<Forecast>() {
                 @Override
                 public void success(Forecast forecast, Response response) {
                     f[0] = forecast;
@@ -49,12 +50,12 @@ public class DetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(getApplicationContext(), "Pas de pr�visions pour cette ville.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.weather_not_available), Toast.LENGTH_SHORT).show();
                 }
             });
 
             WeatherApis.WeatherLocationApi sWeather = adapters.getWeatherLocationAdapter();
-            sWeather.locationWeather(cityName, new Callback<City>() {
+            sWeather.locationWeather(cityName, Config.country, new Callback<City>() {
                 @Override
                 public void success(City c, Response response) {
                     ImageView image = (ImageView) findViewById(R.id.weatherImage);
@@ -63,7 +64,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(DetailsActivity.this, "Hello toast!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsActivity.this, getString(R.string.weather_get_error), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -71,7 +72,7 @@ public class DetailsActivity extends AppCompatActivity {
             cityName = city.getName();
             WeatherApis.WeatherDailyForecastApi s = adapters.getWeatherForecastAdapter();
 
-            s.cityForecast(city.getCityIdentifier(), new Callback<Forecast>() {
+            s.cityForecast(city.getCityIdentifier(), Config.country, new Callback<Forecast>() {
                 @Override
                 public void success(Forecast forecast, Response response) {
                     f[0] = forecast;
@@ -80,7 +81,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(getApplicationContext(), "Pas de pr�visions pour cette ville.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.weather_not_available), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -94,7 +95,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(DetailsActivity.this, "Hello toast!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailsActivity.this, getString(R.string.weather_get_error), Toast.LENGTH_SHORT).show();
                 }
             });
         }

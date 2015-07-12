@@ -1,8 +1,8 @@
 package com.amine.myterio.app.model;
 
 public class Wind {
-    public float deg;
-    public float speed;
+    private float deg;
+    private float speed;
 
     public float getDeg() {
         return deg;

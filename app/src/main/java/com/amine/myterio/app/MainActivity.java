@@ -1,5 +1,6 @@
 package com.amine.myterio.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -7,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.amine.myterio.app.adapters.CitiesAdapter;
+import com.amine.myterio.app.config.Config;
 import com.amine.myterio.app.db.CityDAO;
 import com.amine.myterio.app.model.City;
 import com.melnykov.fab.FloatingActionButton;
@@ -20,33 +23,23 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handleView();
+    }
 
-       /* WeatherAdapters adapters = new WeatherAdapters();
-        WeatherApis.WeatherDailyForecastApi s = adapters.getWeatherForecastAdapter();
-        s.cityForecast(1851632, new Callback<Forecast>() {
-            @Override
-            public void success(Forecast forecast, Response response) {
-                Toast.makeText(getApplicationContext(), "Hello toast!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(getApplicationContext(), "Hello toast!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
+    private void saveUserCountry() {
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        Config.country = tm.getSimCountryIso().toLowerCase();
+        if (Config.country == null || Config.country.equals("") || Config.country.isEmpty())
+            Config.country = MainActivity.this.getResources().getConfiguration().locale.getCountry().toLowerCase();
     }
 
     private void handleView() {
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
-
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        saveUserCountry();
 
         // Google way to test is tablet
         boolean isTablet = ((this.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE);
@@ -62,18 +55,12 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        ArrayList<City> cities = new ArrayList<City>();
+        ArrayList<City> cities;
 
         CityDAO dao = CityDAO.getInstance(this);
-
-        City c = new City("Cairns", 2172797);
-        City c1 = new City("Moscow", 524901);
-
-        dao.insertCity(c);
-        dao.insertCity(c1);
         cities = dao.getAllCities();
 
-        mAdapter = new CitiesAdapter(cities, this);
+        RecyclerView.Adapter mAdapter = new CitiesAdapter(cities, this);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

@@ -3,10 +3,10 @@ package com.amine.myterio.app.model;
 import java.util.List;
 
 public class ForecastWeather {
-    public TempInfo temp;
-    public List<Weather> weather;
-    public float speed;
-    public int dt;
+    private TempInfo temp;
+    private List<Weather> weather;
+    private float speed;
+    private int dt;
 
     public TempInfo getTemp() {
         return temp;

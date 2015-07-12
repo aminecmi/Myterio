@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Myterio</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="weather_not_available">This location dosn\'t have any weather.</string>
+    <string name="weather_get_error">Can\'t get the weather from the API.</string>
+</resources>

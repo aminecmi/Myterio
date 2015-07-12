@@ -3,7 +3,7 @@ package com.amine.myterio.app.api;
 import retrofit.RestAdapter;
 
 public class WeatherAdapters {
-    RestAdapter restAdapter;
+    private final RestAdapter restAdapter;
 
 
     public WeatherAdapters() {

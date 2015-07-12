@@ -18,11 +18,11 @@ public class City implements Parcelable {
             return new City[size];
         }
     };
-    public String name;
-    public int id;
-    public MainInfo main;
-    public List<Weather> weather;
-    public Wind wind;
+    private String name;
+    private int id;
+    private MainInfo main;
+    private List<Weather> weather;
+    private Wind wind;
 
     public City(String name, int id) {
         this.name = name;
@@ -38,7 +38,7 @@ public class City implements Parcelable {
         this.name = description;
     }
 
-    public City(Parcel source) {
+    private City(Parcel source) {
         this.name = source.readString();
         this.id = source.readInt();
         this.main = source.readParcelable(MainInfo.class.getClassLoader());

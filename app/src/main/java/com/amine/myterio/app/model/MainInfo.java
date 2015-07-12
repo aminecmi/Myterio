@@ -15,9 +15,9 @@ public class MainInfo implements Parcelable {
             return new MainInfo[size];
         }
     };
-    public float temp;
-    public float temp_max;
-    public float temp_min;
+    private float temp;
+    private float temp_max;
+    private float temp_min;
 
     public MainInfo(Parcel source) {
         this.temp = source.readFloat();

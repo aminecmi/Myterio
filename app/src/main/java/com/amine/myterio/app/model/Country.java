@@ -3,9 +3,9 @@ package com.amine.myterio.app.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Country {
-    public String name;
-    public List<City> cities;
+class Country {
+    private String name;
+    private List<City> cities;
 
     public Country() {
         cities = new ArrayList<City>();

@@ -1,5 +1,6 @@
 package com.amine.myterio.app.api;
 
+import com.amine.myterio.app.model.Predictions;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;

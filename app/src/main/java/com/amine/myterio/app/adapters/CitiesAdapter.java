@@ -13,6 +13,7 @@ import com.amine.myterio.app.DetailsActivity;
 import com.amine.myterio.app.R;
 import com.amine.myterio.app.api.WeatherAdapters;
 import com.amine.myterio.app.api.WeatherApis;
+import com.amine.myterio.app.config.Config;
 import com.amine.myterio.app.model.City;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -21,19 +22,18 @@ import retrofit.client.Response;
 import java.util.ArrayList;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder> {
-    private static ArrayList<City> mDataset;
-    private static Context c;
+    private ArrayList<City> mDataset;
+    private Context c;
 
     public CitiesAdapter(ArrayList<City> cities, Context c) {
-        mDataset = cities;
+        this.mDataset = cities;
         this.c = c;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_card_view, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
         WeatherAdapters adapters = new WeatherAdapters();
         WeatherApis.WeatherCityApi s = adapters.getWeatherCityAdapter();
-        s.cityWeather(currentCity[0].getCityIdentifier(), new Callback<City>() {
+        s.cityWeather(currentCity[0].getCityIdentifier(), Config.country, new Callback<City>() {
             @Override
             public void success(City city, Response response) {
                 currentCity[0] = city;
@@ -71,7 +71,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(c, "Hello toast!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(c, c.getString(R.string.weather_get_error), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -82,7 +82,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener {
-        public View mCardView;
+        public final View mCardView;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -1,10 +1,10 @@
-package com.amine.myterio.app.api;
+package com.amine.myterio.app.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Predictions {
-    public List<PredictionCities> predictions;
+    private List<PredictionCities> predictions;
 
     public List<PredictionCities> getPredictions() {
         return predictions;

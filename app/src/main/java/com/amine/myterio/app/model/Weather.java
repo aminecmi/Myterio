@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class Weather {
-    public String description;
-    public String icon;
-    public int id;
-    public String main;
+    private String description;
+    private String icon;
+    private int id;
+    private String main;
 
     public String getDescription() {
         return description;
@@ -17,8 +17,12 @@ public class Weather {
         this.description = description;
     }
 
-    public String getIcon() {
+    private String getIcon() {
         return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Drawable getIconDrawable(Context c, String packageName) {
@@ -75,10 +79,6 @@ public class Weather {
 
         int imageResource = c.getResources().getIdentifier(uri, null, packageName);
         return c.getResources().getDrawable(imageResource);
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
     }
 
     public int getId() {

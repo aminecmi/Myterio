@@ -1,9 +1,7 @@
-package com.amine.myterio.app.api;
-
-import com.amine.myterio.app.model.City;
+package com.amine.myterio.app.model;
 
 public class PredictionCities {
-    public String description;
+    private String description;
 
     public String getDescription() {
         return description;

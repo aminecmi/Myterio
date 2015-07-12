@@ -3,7 +3,7 @@ package com.amine.myterio.app.api;
 import retrofit.RestAdapter;
 
 public class CitiesAdapters {
-    RestAdapter restAdapter;
+    private final RestAdapter restAdapter;
 
     public CitiesAdapters() {
         this.restAdapter = new RestAdapter.Builder()

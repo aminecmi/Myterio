@@ -37,11 +37,11 @@ public class CityDAO {
         }
     }
 
-    public void open() {
+    private void open() {
         bdd = maBaseSQLite.getWritableDatabase();
     }
 
-    public void close() {
+    private void close() {
         bdd.close();
     }
 

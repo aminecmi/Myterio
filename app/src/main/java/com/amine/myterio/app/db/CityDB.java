@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class CityDB extends SQLiteOpenHelper {
+class CityDB extends SQLiteOpenHelper {
 
     private static final String TABLE_CITIES = "cities";
     private static final String COL_ID = "ID";

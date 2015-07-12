@@ -1,12 +1,12 @@
 package com.amine.myterio.app.model;
 
 public class TempInfo {
-    public float day;
-    public float min;
-    public float max;
-    public float night;
-    public float eve;
-    public float morn;
+    private float day;
+    private float min;
+    private float max;
+    private float night;
+    private float eve;
+    private float morn;
 
     public float getDay() {
         return day;
