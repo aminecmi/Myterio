@@ -82,6 +82,17 @@ public class CityDAO {
         return city;
     }
 
+
+    public City getCity(String name) {
+        this.open();
+        Cursor c = bdd.query(TABLE_CITIES, null, COL_NAME + " like \"" + name + "\"", null, null, null, null);
+        c.moveToFirst();
+        City city = cursorToCity(c);
+        c.close();
+        this.close();
+        return city;
+    }
+
     private City cursorToCity(Cursor c) {
         if (c.getCount() == 0) {
             return null;

@@ -6,4 +6,8 @@
     <string name="title_activity_details" translatable="false">DetailsActivity</string>
     <string name="weather_not_available">Pas de prévisions pour cette ville.</string>
     <string name="weather_get_error">Erreur lors de la récupération des prévisions</string>
+    <string name="message_remove_from_favs">Voulez-vous vraiment supprimer cette ville ?</string>
+    <string name="title_remove_from_favs">Supprimer la ville?</string>
+    <string name="delete">Supprimer</string>
+    <string name="cancel">Annuler</string>
 </resources>

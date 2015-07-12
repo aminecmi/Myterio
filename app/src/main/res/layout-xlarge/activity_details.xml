@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cityName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="150dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/weekForecast"

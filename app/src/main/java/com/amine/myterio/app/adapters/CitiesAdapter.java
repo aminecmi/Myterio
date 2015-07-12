@@ -1,7 +1,9 @@
 package com.amine.myterio.app.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.amine.myterio.app.R;
 import com.amine.myterio.app.api.WeatherAdapters;
 import com.amine.myterio.app.api.WeatherApis;
 import com.amine.myterio.app.config.Config;
+import com.amine.myterio.app.db.CityDAO;
 import com.amine.myterio.app.model.City;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -33,6 +36,12 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_card_view, parent, false);
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
         return new ViewHolder(v);
     }
 
@@ -81,13 +90,14 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         return mDataset.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener, RecyclerView.OnLongClickListener {
         public final View mCardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mCardView = itemView;
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -97,6 +107,32 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
             Intent intent = new Intent(c, DetailsActivity.class);
             intent.putExtra("city", mDataset.get(position));
             c.startActivity(intent);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            final int position = getLayoutPosition();
+            AlertDialog.Builder builder = new AlertDialog.Builder(c);
+            builder.setMessage(R.string.message_remove_from_favs)
+                    .setTitle(R.string.title_remove_from_favs);
+            builder.setPositiveButton(c.getString(R.string.delete), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    CityDAO dao = CityDAO.getInstance(c);
+                    dao.deleteCity(mDataset.get(position));
+                    mDataset.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, mDataset.size());
+                }
+            });
+            builder.setNegativeButton(c.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            return false;
         }
     }
 }

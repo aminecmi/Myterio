@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         handleView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handleView();
+    }
+
     private void saveUserCountry() {
         TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         Config.country = tm.getSimCountryIso().toLowerCase();
