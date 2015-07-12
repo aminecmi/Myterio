@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -8,38 +8,12 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context="com.amine.myterio.app.DetailsActivity">
 
-    <TextView
-        android:id="@+id/cityName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <fragment
+        android:id="@+id/details_frag"
+        android:name="com.amine.myterio.app.fragments.DetailsFragment"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        tools:layout="@layout/details_fragment"/>
 
-    <ImageView
-        android:id="@+id/weatherImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cityName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/weekForecast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/weatherImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"/>
-
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"/>
-
-</RelativeLayout>
+</LinearLayout>
