@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
@@ -53,15 +51,8 @@ public class CitiesListFragment extends Fragment {
     private void handleView() {
         saveUserCountry();
 
-        // Google way to test is tablet
-        boolean isTablet = ((this.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE);
-
         RecyclerView.LayoutManager layoutManager;
-        if (isTablet) {
-            layoutManager = new GridLayoutManager(mActivity, 2);
-        } else {
-            layoutManager = new LinearLayoutManager(mActivity);
-        }
+        layoutManager = new LinearLayoutManager(mActivity);
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -71,7 +62,7 @@ public class CitiesListFragment extends Fragment {
         CityDAO dao = CityDAO.getInstance(mActivity);
         cities = dao.getAllCities();
 
-        RecyclerView.Adapter mAdapter = new CitiesAdapter(cities, mActivity);
+        RecyclerView.Adapter mAdapter = new CitiesAdapter(cities, mActivity, this.getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         fab.attachToRecyclerView(mRecyclerView);

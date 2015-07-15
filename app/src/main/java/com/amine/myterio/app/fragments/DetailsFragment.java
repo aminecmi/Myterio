@@ -38,7 +38,17 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View fragView = inflater.inflate(R.layout.details_fragment, null, false);
-        String cityName = getActivity().getIntent().getExtras().getString("city_name");
+        String cityName = null;
+        City city = null;
+        if (this.getArguments() != null) {
+            Bundle bundle = this.getArguments();
+            city = bundle.getParcelable("city");
+        } else {
+            cityName = getActivity().getIntent().getExtras().getString("city_name");
+            if (cityName == null) {
+                city = getActivity().getIntent().getExtras().getParcelable("city");
+            }
+        }
 
         WeatherAdapters adapters = new WeatherAdapters();
         final Forecast[] f = {null};
@@ -81,7 +91,6 @@ public class DetailsFragment extends Fragment {
                 }
             });
         } else {
-            City city = getActivity().getIntent().getExtras().getParcelable("city");
             cityName = city.getName();
             isFav = dao.getCity(city.getCityIdentifier()) != null;
             WeatherApis.WeatherDailyForecastApi s = adapters.getWeatherForecastAdapter();

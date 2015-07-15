@@ -1,16 +1,25 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity">
+    tools:context=".MainActivity">
 
     <fragment
         android:id="@+id/cities_list_frag"
         android:name="com.amine.myterio.app.fragments.CitiesListFragment"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
+        android:layout_weight=".4"
         tools:layout="@layout/cities_list_fragment"/>
+
+    <LinearLayout
+        android:id="@+id/details"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".6"
+        android:orientation="horizontal"></LinearLayout>
 
 
 </LinearLayout>

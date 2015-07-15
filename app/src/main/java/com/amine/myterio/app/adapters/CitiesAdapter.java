@@ -1,8 +1,13 @@
 package com.amine.myterio.app.adapters;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +22,7 @@ import com.amine.myterio.app.api.WeatherAdapters;
 import com.amine.myterio.app.api.WeatherApis;
 import com.amine.myterio.app.config.Config;
 import com.amine.myterio.app.db.CityDAO;
+import com.amine.myterio.app.fragments.DetailsFragment;
 import com.amine.myterio.app.model.City;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -27,10 +33,12 @@ import java.util.ArrayList;
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder> {
     private ArrayList<City> mDataset;
     private Context c;
+    private Activity activity;
 
-    public CitiesAdapter(ArrayList<City> cities, Context c) {
+    public CitiesAdapter(ArrayList<City> cities, Context c, Activity a) {
         this.mDataset = cities;
         this.c = c;
+        this.activity = a;
     }
 
     @Override
@@ -102,11 +110,32 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
         @Override
         public void onClick(View v) {
-            // Go to details activity
             final int position = getLayoutPosition();
-            Intent intent = new Intent(c, DetailsActivity.class);
-            intent.putExtra("city", mDataset.get(position));
-            c.startActivity(intent);
+            int a = (c.getResources().getConfiguration().screenLayout &
+                    Configuration.SCREENLAYOUT_SIZE_MASK);
+
+            if (((c.getResources().getConfiguration().screenLayout &
+                    Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                    Configuration.SCREENLAYOUT_SIZE_LARGE) || ((c.getResources().getConfiguration().screenLayout &
+                    Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                    Configuration.SCREENLAYOUT_SIZE_XLARGE) || ((c.getResources().getConfiguration().screenLayout &
+                    Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                    4)) {
+                FragmentManager fragmentManager = activity.getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                DetailsFragment fragment = new DetailsFragment();
+                fragmentTransaction.replace(R.id.details, fragment);
+
+                fragmentTransaction.commit();
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("city", mDataset.get(position));
+                fragment.setArguments(bundle);
+            } else {
+                Intent intent = new Intent(c, DetailsActivity.class);
+                intent.putExtra("city", mDataset.get(position));
+                c.startActivity(intent);
+            }
         }
 
         @Override

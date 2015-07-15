@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name" translatable="false">Myterio</string>
+    <string name="app_name">Myterio</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_search" translatable="false">SearchActivity</string>
-    <string name="title_activity_details" translatable="false">DetailsActivity</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="title_activity_search">Rechercher</string>
+    <string name="title_activity_details">Détails</string>
     <string name="weather_not_available">Pas de prévisions pour cette ville.</string>
     <string name="weather_get_error">Erreur lors de la récupération des prévisions</string>
     <string name="message_remove_from_favs">Voulez-vous vraiment supprimer cette ville ?</string>

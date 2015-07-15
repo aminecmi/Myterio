@@ -32,7 +32,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     @Override
     public void onBindViewHolder(ForecastAdapter.ViewHolder holder, int position) {
         ForecastWeather fw = this.forecast.getList().get(position);
-        // MARCHE PAS
+
         Date date = new Date((long) fw.getDt() * 1000);
         DateFormat format = new SimpleDateFormat("EEEE");
         String finalDay = format.format(date);
