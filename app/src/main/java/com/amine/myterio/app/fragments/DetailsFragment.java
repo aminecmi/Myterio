@@ -2,6 +2,7 @@ package com.amine.myterio.app.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -139,9 +140,32 @@ public class DetailsFragment extends Fragment {
                 if (isFav) {
                     dao.deleteCity(f[0].getCity());
                     fab.setImageResource(R.mipmap.ic_favorite_black_24dp);
+                    if (((getActivity().getResources().getConfiguration().screenLayout &
+                            Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                            Configuration.SCREENLAYOUT_SIZE_LARGE) || ((getActivity().getResources().getConfiguration().screenLayout &
+                            Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                            Configuration.SCREENLAYOUT_SIZE_XLARGE) || ((getActivity().getResources().getConfiguration().screenLayout &
+                            Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                            4)) {
+                        CitiesListFragment f = (CitiesListFragment) getFragmentManager().findFragmentByTag("cities_list_frag");
+                        if (f != null)
+                            f.handleView();
+                    }
+
                 } else {
                     dao.insertCity(f[0].getCity());
                     fab.setImageResource(R.mipmap.ic_favorite_border_black_24dp);
+                    if (((getActivity().getResources().getConfiguration().screenLayout &
+                            Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                            Configuration.SCREENLAYOUT_SIZE_LARGE) || ((getActivity().getResources().getConfiguration().screenLayout &
+                            Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                            Configuration.SCREENLAYOUT_SIZE_XLARGE) || ((getActivity().getResources().getConfiguration().screenLayout &
+                            Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                            4)) {
+                        CitiesListFragment f = (CitiesListFragment) getFragmentManager().findFragmentByTag("cities_list_frag");
+                        if (f != null)
+                            f.handleView();
+                    }
                 }
             }
         });

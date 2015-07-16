@@ -1,9 +1,11 @@
 package com.amine.myterio.app;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import com.melnykov.fab.FloatingActionButton;
 
 
@@ -34,7 +36,14 @@ public class DetailsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            final Dialog dialog = new Dialog(this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(true);
+
+            // Content of the dialog
+            dialog.setContentView(R.layout.activity_more);
+            dialog.show();
             return true;
         }
         if (id == android.R.id.home) {

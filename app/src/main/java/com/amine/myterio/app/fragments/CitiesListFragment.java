@@ -2,19 +2,16 @@ package com.amine.myterio.app.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.amine.myterio.app.R;
 import com.amine.myterio.app.SearchActivity;
 import com.amine.myterio.app.adapters.CitiesAdapter;
-import com.amine.myterio.app.config.Config;
 import com.amine.myterio.app.db.CityDAO;
 import com.amine.myterio.app.model.City;
 import com.melnykov.fab.FloatingActionButton;
@@ -48,9 +45,7 @@ public class CitiesListFragment extends Fragment {
         handleView();
     }
 
-    private void handleView() {
-        saveUserCountry();
-
+    public void handleView() {
         RecyclerView.LayoutManager layoutManager;
         layoutManager = new LinearLayoutManager(mActivity);
 
@@ -74,13 +69,5 @@ public class CitiesListFragment extends Fragment {
                 startActivity(intent);
             }
         });
-    }
-
-
-    private void saveUserCountry() {
-        TelephonyManager tm = (TelephonyManager) mActivity.getSystemService(Context.TELEPHONY_SERVICE);
-        Config.country = tm.getSimCountryIso().toLowerCase();
-        if (Config.country == null || Config.country.equals("") || Config.country.isEmpty())
-            Config.country = mActivity.getResources().getConfiguration().locale.getCountry().toLowerCase();
     }
 }
